@@ -33,6 +33,9 @@ module.exports = {
     'semi': [2, 'always'],
     "no-new": 0,
     'space-before-function-paren': 0,
-    'eol-last': 0
+    'eol-last': 0,
+    'no-useless-escape': 0,
+    'no-unneeded-ternary': 0,
+    'comma-dangle': 0
   }
 }
