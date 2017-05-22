@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import Utility from './Common/Utility';
+// import Utility from './Common/Utility';
 import Vue from 'vue';
-import Menu from './components/Menu.vue';
+import { Menu, Utility } from './components/core';
 
 export default {
   name: 'app',

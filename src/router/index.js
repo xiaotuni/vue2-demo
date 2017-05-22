@@ -1,9 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '@/components/Hello';
-import Page1 from '@/components/Page1';
+// import Hello from '@/components/Hello';
+// import Page1 from '@/components/Page1';
 import v0201 from '@/demo/v0201';
-
+import { PageInfo } from '../containers/core';
+const { Hello, Page1 } = PageInfo;
+// console.log(PageInfo);
+// console.log('-----------');
 Vue.use(Router);
 
 export default new Router({
