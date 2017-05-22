@@ -1,3 +1,32 @@
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+.hello {
+  text-align: center;
+  .img {
+    margin-top: 60px;
+  }
+  h1,
+  h2 {
+    font-weight: normal;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  a {
+    color: #42b983;
+  }
+}
+</style>
+
 <template>
   <div class="hello">
     <img class="img" src="../assets/logo.png" />
@@ -40,42 +69,14 @@
 </template>
 
 <script>
+
 export default {
   name: 'hello',
   data() {
-    console.log('---------');
+    // console.log('---------');
     return {
-
       msg: 'Welcome to Your Vue.js App'
     };
-  }
+  },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-.hello {
-  text-align: center;
-  .img {
-    margin-top: 60px;
-  }
-  h1,
-  h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  a {
-    color: #42b983;
-  }
-}
-</style>

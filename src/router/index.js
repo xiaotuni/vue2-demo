@@ -10,6 +10,7 @@ export default new Router({
   mode: 'history',
   routes: [
     { path: '/', name: 'Hello', component: Hello },
+    { path: '/home', name: 'hello', component: Hello },
     { path: '/page1', name: 'Page1', component: Page1 },
     { path: '/h0201', name: 'v0201', component: v0201 },
   ]

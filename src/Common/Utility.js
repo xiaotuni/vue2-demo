@@ -65,15 +65,15 @@ export default class Utility {
      */
     UrlItem: {
       GoBack: 'goBack',                                                    // 回退操作
-      Login: 'login',                                                      // 登录
-      App: 'app',                                                  // 首页-->商品列表
-      Default: 'default',                                                  // 首页-->商品列表
-      OtherPage: 'otherpage',                                                  // 首页-->商品列表
+      Home: 'home',                                                        // 
+      H0201: 'h0201',                                                      // 
+      Page1: 'page1',                                                      // 
     },
     UrlTitle: {
-      '/app': { Title: 'APP页面', Index: 1 },
-      '/default': { Title: '默认页面', Index: 1 },
-      '/otherpage': { Title: '其它界面', Index: 1 },
+      '/': { Title: '首页', Index: 1 },
+      '/home': { Title: 'home', Index: 1 },
+      '/h0201': { Title: 'h0201', Index: 1 },
+      '/page1': { Title: 'page1', Index: 1 },
     },
     /**
      * 显示模式
@@ -563,7 +563,6 @@ export default class Utility {
     return __Array;
   }
 
-
   /**
    * 页面跳转
    * @param url 要跳转的页面。
@@ -572,19 +571,16 @@ export default class Utility {
   static toPage(url, params) {
     try {
       const __context = this.getContent(this.constItem.Context);
-      if (this.isUndefined(url) || url === '' || this.isUndefined(__context) || this.isUndefined(__context.router)) {
+      if (this.isUndefined(url) || url === '' || this.isUndefined(__context) || this.isUndefined(__context.$router)) {
         return;
       }
-      const router = __context.router;
-
+      const router = __context.$router;
       if (url === this.constItem.UrlItem.GoBack) {
         this.$emit(this.constItem.Events.OnGoBack, { url: url, params: params });
         return;
       }
-      // const __param = this.convertToUrlParams(params);
-      // router.push('/' + url + (__param ? ('?' + __param) : ''));
-      const __pathname = '/' + url;
-      router.push({ pathname: __pathname, query: Object.assign(params || {}, { _timestamp: new Date().getTime() }) });
+      const __pathname = url;
+      router.push({ path: __pathname, query: Object.assign(params || {}, { _timestamp: new Date().getTime() }) });
     } catch (ex) {
       console.log(ex.toString());
     }
@@ -712,10 +708,10 @@ export default class Utility {
     if (this.isUndefined(event) || event === null) {
       return;
     }
-    if (!this.isFunction(event.emit)) {
+    if (!this.isFunction(event.$emit)) {
       return;
     }
-    event.emit(eventName, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    event.$emit(eventName, param1, param2, param3, param4, param5, param6, param7, param8, param9);
   }
 
   /**
@@ -731,10 +727,10 @@ export default class Utility {
     if (this.isUndefined(event) || event === null) {
       return;
     }
-    if (!this.isFunction(event.on)) {
+    if (!this.isFunction(event.$on)) {
       return;
     }
-    event.on(eventName, callBack);
+    event.$on(eventName, callBack);
   }
 
   /**

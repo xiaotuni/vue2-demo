@@ -36,6 +36,7 @@ module.exports = {
     'eol-last': 0,
     'no-useless-escape': 0,
     'no-unneeded-ternary': 0,
-    'comma-dangle': 0
+    'comma-dangle': 0,
+    'no-multiple-empty-lines': 0
   }
 }

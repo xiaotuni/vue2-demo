@@ -130,7 +130,7 @@ export default {
     };
   },
   mounted() {
-    console.log('mounted...');
+    // console.log('mounted...');
 
     for (let i = 0; i < 2; i++) {
       const __AddressInfo = {
@@ -147,7 +147,7 @@ export default {
       this.IsShowRed = !this.IsShowRed;
     },
     Add(value) {
-      console.log(value);
+      // console.log(value);
       this.list.push(value);
       this.newValue = '';
       this.$refs.txtNewValue.focus();

@@ -36,8 +36,8 @@ export default {
     };
   },
   mounted() {
-    console.log('task list components...');
-    console.log(this);
+    // console.log('task list components...');
+    // console.log(this);
   },
   methods: {
   },
