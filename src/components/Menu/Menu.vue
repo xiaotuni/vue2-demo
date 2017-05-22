@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import Utility from '../../Common/Utility';
+import { Utility } from '@/components/core';
 export default {
   data() {
     const __Content = { List: [] };
@@ -31,14 +31,11 @@ export default {
   mounted() {
     const { UrlTitle } = Utility.constItem;
     Object.keys(UrlTitle).forEach(key => {
-      // console.log(key);
       this.List.push(Object.assign({}, { Url: key }, UrlTitle[key]));
     });
-    // this.List = Object.values(UrlTitle);
   },
   methods: {
     GoToPage(item) {
-      // console.log(item);
       Utility.toPage(item.Url);
     }
   }

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { Utility } from '../../components/core';
+import { Utility } from '@/components/core';
 export default {
   name: 'hello',
   data() {
