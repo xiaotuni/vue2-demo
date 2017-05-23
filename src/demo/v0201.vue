@@ -72,6 +72,8 @@
 </style>
 <template>
   <div class="hello">
+    <xtn-menu></xtn-menu>
+  
     <h1>{{ msg }}</h1>
     <input type="text" v-model="msg" />
     <div class="inputInfo">
@@ -120,6 +122,7 @@
 
 <script>
 import TaskList from './components/TaskList.vue';
+import { Menu } from '@/components/core';
 export default {
   data() {
     return {
@@ -164,7 +167,8 @@ export default {
     }
   },
   components: {
-    'task-list': TaskList
+    'task-list': TaskList,
+    'xtn-menu': Menu
   }
 };
 
