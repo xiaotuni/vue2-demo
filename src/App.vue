@@ -113,9 +113,9 @@ export default {
         } else {
           const aa = __Router[__StateKey];
           if (aa.index > __RouterInfo.__CurrentIndex) {
-            console.log('前进');
+            // console.log('前进');
           } else {
-            console.log('后退');
+            // console.log('后退');
             __self.TranName = 'goback';
             setTimeout(() => {
               __self.TranName = 'nextPage';
