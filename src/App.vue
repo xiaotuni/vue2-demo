@@ -97,10 +97,13 @@ export default {
 
     const __KeyRouter = 'XTN_KEY_ROUTER';
     Utility.removeContent(__KeyRouter, true);
+    const __UrlTitle = Utility.constItem.UrlTitle;
     this.$router.beforeEach((to, from, next) => {
+      if (__UrlTitle[to.path]) {
+        window.document.title = __UrlTitle[to.path].Title || 'my-project';
+      }
       const { key } = history.state || {};
       if (key) {
-        console.log(history.state);
         const __RouterInfo = Utility.getContent(__KeyRouter) || { __Router: {} };
         const { __Router } = __RouterInfo;
         const __StateKey = history.state.key;
