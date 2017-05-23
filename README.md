@@ -27,4 +27,6 @@ npm run e2e
 npm test
 ```
 
+# 添加路由页面之间切换动画效果
+
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
