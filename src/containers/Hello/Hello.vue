@@ -29,6 +29,7 @@
 
 <template>
   <div class="hello">
+    <xtn-menu></xtn-menu>
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -68,7 +69,7 @@
 </template>
 
 <script>
-
+import { Menu } from '@/components/core';
 export default {
   name: 'hello',
   data() {
@@ -77,5 +78,8 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     };
   },
+  components: {
+    'xtn-menu': Menu
+  }
 };
 </script>

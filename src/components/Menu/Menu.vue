@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     GoToPage(item) {
-      Utility.toPage(item.Url);
+      Utility.$toPage(item.Url);
     }
   }
 };

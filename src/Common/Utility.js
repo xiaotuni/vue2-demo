@@ -52,6 +52,7 @@ export default class Utility {
         502: 'onHttpStatus_XTN_502',
         503: 'onHttpStatus_XTN_503',
       },
+      OnGoBack: 'XTN_EVENTS_GoBack',
     },
     UserInfo: 'XTN_UserInfo',                                                    // 用户信息
     SaveUserConfigInfo: 'XTN_SaveUserConfigInfo',                                // 保存用户获取的配置信息
@@ -568,7 +569,7 @@ export default class Utility {
    * @param url 要跳转的页面。
    * @param params 参数
    */
-  static toPage(url, params) {
+  static $toPage(url, params) {
     try {
       const __context = this.getContent(this.constItem.Context);
       if (this.isUndefined(url) || url === '' || this.isUndefined(__context) || this.isUndefined(__context.$router)) {
@@ -576,7 +577,7 @@ export default class Utility {
       }
       const router = __context.$router;
       if (url === this.constItem.UrlItem.GoBack) {
-        this.$emit(this.constItem.Events.OnGoBack, { url: url, params: params });
+        this.$emit(this.constItem.Events.OnGoBack, { url: url, params: Object.assign({}, { times: 1 }, params || {}) });
         return;
       }
       const __pathname = url;
@@ -584,6 +585,9 @@ export default class Utility {
     } catch (ex) {
       console.log(ex.toString());
     }
+  }
+  static $goBack(times) {
+    this.$emit(this.constItem.Events.OnGoBack, { times: times });
   }
 
   /**

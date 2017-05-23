@@ -14,24 +14,25 @@
 
 <template>
   <div class="page1Css">
+    <xtn-menu></xtn-menu>
     <div class="title">
       Page1
     </div>
     <br/> aaadsf
     <div>
-     aaadsfas fdas defaultasdf
+      aaadsfas fdas defaultasdf
     </div>
     <div>
-     aaadsfas fdas defaultasdf
+      aaadsfas fdas defaultasdf
     </div>
     <div>
-     aaadsfas fdas defaultasdf
+      aaadsfas fdas defaultasdf
     </div>
     <div>
-     aaadsfas fdas defaultasdf
+      aaadsfas fdas defaultasdf
     </div>
     <div>
-     aaadsfas fdas defaultasdf
+      aaadsfas fdas defaultasdf
     </div>
     <br/>
     <hr />
@@ -41,7 +42,7 @@
 </template>
 
 <script>
-import { Utility } from '@/components/core';
+import { Utility, Menu } from '@/components/core';
 export default {
   name: 'hello',
   data() {
@@ -53,8 +54,12 @@ export default {
     aaa: function () {
       // console.log('-------');
       // console.log(Utility);
-      Utility.$emit(Utility.constItem.UrlItem.GoBack, { a: '111' });
+      // Utility.$emit(Utility.constItem.UrlItem.GoBack, { a: '111' });
+      Utility.$goBack(2);
     },
+  },
+  components: {
+    'xtn-menu': Menu
   }
 };
 </script>
