@@ -13,11 +13,13 @@
   .store {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     .btn {
       padding: 5px 10px;
       border: 1px solid #f5f5f5;
       border-radius: 5px;
       margin-right: 5px;
+      margin-top: 5px;
     }
   }
 }
@@ -40,6 +42,7 @@
       <div class="btn" @click="ModifyMethdName('aaaaaaa')">aa</div>
       <div class="btn" @click="ModifyMethdName('bbbbbbb')">bb</div>
       <div class="btn" @click="ModifyMethdName('ccccccc')">cc</div>
+      <div class="btn" @click="CallMethodName('QueryList')">Call Query List Api</div>
   
     </div>
   </div>
@@ -66,10 +69,20 @@ export default {
       const aa = (pp) => {
         console.log(pp);
       };
+      const __self = this;
       this.$store.dispatch('CommonMethod', {
         methodName: name, obj: this, callBack: [aa], current: new Date().getTime()
+      }).then((result) => {
+        console.log(__self.$store.state.Common.Temp001);
+        console.log(result);
       });
     },
+    CallMethodName(methodName) {
+      this.$store.dispatch(methodName, { current: new Date().getTime() }).then((list) => {
+        console.log('返回的值-------');
+        console.log(list);
+      });
+    }
   },
   updated: function () {
     console.log('实例更新啦');

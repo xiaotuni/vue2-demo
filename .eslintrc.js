@@ -39,6 +39,8 @@ module.exports = {
     'comma-dangle': 0,
     'no-multiple-empty-lines': 0,
     'padded-blocks': 0,
-    'object-property-newline': 0
+    'object-property-newline': 0,
+    'no-return-assign': 0,
+    'no-extra-boolean-cast': 0
   }
 }

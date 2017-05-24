@@ -1,10 +1,5 @@
-export const cartProducts = state => {
-  return state.cart.added.map(({ id, quantity }) => {
-    const product = state.products.all.find(p => p.id === id);
-    return {
-      title: product.title,
-      price: product.price,
-      quantity
-    };
-  });
+import clientMiddleware from '@/helpers/clientMiddleware';
+import ApiClient from '@/helpers/ApiClient';
+export const client = state => {
+  return clientMiddleware(new ApiClient(null));
 };

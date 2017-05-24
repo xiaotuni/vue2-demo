@@ -87,6 +87,13 @@ export default class Utility {
     },
   }
 
+  static $actionSheet(msg) {
+    alert(msg);
+  }
+  static $loadingHide() {
+
+  }
+
   /**
    * 是否是数组
    * @param obj
