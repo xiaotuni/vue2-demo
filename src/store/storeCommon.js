@@ -68,6 +68,19 @@ export default {
     QueryFirst(action, params) {
       const { commit } = action;
       return commit(__Query_First, params);
+    },
+    QueryApi(action, paramsInfo) {
+      const { commit, getters } = action;
+      const { client } = getters;
+      const { Api, StateName, params, data } = paramsInfo;
+      return client({
+        commit, action: {
+          StateName: StateName,
+          types: [Load, __Query_Collection, Fail],
+          promise: (client) => client.get(Api, { params: params, data }),
+          conditions: params,
+        }
+      });
     }
   },
   mutations: {

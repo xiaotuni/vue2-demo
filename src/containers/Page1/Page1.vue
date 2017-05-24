@@ -43,13 +43,14 @@
       <div class="btn" @click="ModifyMethdName('bbbbbbb')">bb</div>
       <div class="btn" @click="ModifyMethdName('ccccccc')">cc</div>
       <div class="btn" @click="CallMethodName('QueryList')">Call Query List Api</div>
+      <div class="btn" @click="CallAPI()">Call Api</div>
   
     </div>
   </div>
 </template>
 
 <script>
-import { Utility, Menu } from '@/components/core';
+import { Utility, Menu, ApiInfo } from '@/components/core';
 export default {
   name: 'hello',
   data() {
@@ -81,6 +82,19 @@ export default {
       this.$store.dispatch(methodName, { current: new Date().getTime() }).then((list) => {
         console.log('返回的值-------');
         console.log(list);
+      });
+    },
+    CallAPI() {
+      const __self = this;
+      const obj = {
+        Api: ApiInfo.Common.Organization, StateName: 'OrganizationList',
+        params: { parentId: 10000000, CurrentIndex: 0, showTree: false },
+        data: { parentId: 10000000, CurrentIndex: 0, showTree: false },
+      };
+      console.log(obj);
+      this.$store.dispatch('QueryApi', obj).then((result) => {
+        console.log(__self.$store.state.Common.OrganizationList);
+        console.log('call api', result);
       });
     }
   },
