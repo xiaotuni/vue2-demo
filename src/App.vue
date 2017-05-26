@@ -69,7 +69,6 @@
 </template>
 
 <script>
-// import Utility from './Common/Utility';
 import Vue from 'vue';
 import { Menu, Utility } from './components/core';
 
@@ -82,11 +81,10 @@ export default {
     };
     return _Content;
   },
-  created() {
-    Utility.setContent(Utility.constItem.Event, new Vue());
-    Utility.setContent(Utility.constItem.Context, this);
+  mounted() {
     const __self = this;
-    Utility.$on(Utility.constItem.Events.OnGoBack, (args) => {
+    const { HttpStatus, OnGoBack } = Utility.constItem.Events;
+    Utility.$on(OnGoBack, (args) => {
       __self.TranName = 'goback';
       __self.IsGoBack = true;
       __self.$router.back();
@@ -95,7 +93,39 @@ export default {
       }, 600);
     });
 
-    const __KeyRouter = 'XTN_KEY_ROUTER';
+    const __ProcessHttpStatus = (args) => {
+      const { code, body } = args || {};
+      const { msg } = body;
+      switch (code) {
+        case 400:              // bad request
+          break;
+        case 401:              // Unauthorized
+          break;
+        case 403:
+          break;
+        case 404:
+          break;
+        case 500:
+          break;
+        case 501:
+          break;
+        case 502:
+          break;
+        default:
+          break;
+      }
+      console.log(code, msg);
+    };
+    Object.values(HttpStatus).forEach((eventName) => {
+      Utility.$on(eventName, __ProcessHttpStatus);
+    });
+
+  },
+  created() {
+    Utility.setContent(Utility.constItem.Event, new Vue());
+    Utility.setContent(Utility.constItem.Context, this);
+    const __self = this;
+    const __KeyRouter = Utility.constItem.SaveRouterKey;
     Utility.removeContent(__KeyRouter, true);
     const __UrlTitle = Utility.constItem.UrlTitle;
     this.$router.beforeEach((to, from, next) => {

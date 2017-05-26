@@ -19,6 +19,22 @@ export default {
       const { commit } = action;
       commit(__GetTestAction, params);
     },
+
+    CallAPIByClient1(action, params) {
+      // console.log('CallAPIByClient1');
+      const { commit, getters } = action;
+      const { client1 } = getters;
+      commit(Load);
+      // return client1.get(client1.API.Common.Organization, {
+      //   params: { parentId: 10000000, CurrentIndex: 0, showTree: false },
+      // });
+
+      return client1.post(client1.API.Common.SaveUser, {
+        params: { parentId: 10000000, CurrentIndex: 0, showTree: false },
+        data: { parentId1: 10000000, CurrentIndex: 0, showTree: false },
+      });
+    },
+
     CommonMethod(action, params) {
       const { commit, getters } = action;
       const { client } = getters;
@@ -43,12 +59,12 @@ export default {
 
       /*
        * -------批量调用接口 方法1-------- 
+      *********************/
       // const __APIList = [];
-      // __APIList.push(client({ commit, action: { StateName: 'OrgInfoList', types: [Load, __Query_Collection, Fail], promise: (client) => client.get(client.API.Common.Organization, { params: __APIParams }), conditions: __APIParams, } }));
+      // __APIList.push(client({ commit, action: { StateName: 'OrgInfoList', types: [Load, __Query_Collection, Fail], promise: (client) => client.post(client.API.Common.Organization, { params: __APIParams }), conditions: __APIParams, } }));
       // __APIList.push(client({ commit, action: { StateName: 'OrgInfoList1', types: [Load, __Query_Collection, Fail], promise: (client) => client.get(client.API.Common.Organization, { params: __APIParams1 }), conditions: __APIParams, } }));
       // __APIList.push(client({ commit, action: { StateName: 'OrgInfoList2', types: [Load, __Query_Collection, Fail], promise: (client) => client.get(client.API.Common.Organization, { params: __APIParams2 }), conditions: __APIParams, } }));
       // return Promise.all(__APIList);
-      *********************/
 
       // 批量调用接口方法2 这种更好。
       return client({
@@ -58,9 +74,9 @@ export default {
           fail: Fail,
           complete: Complete,
           list: [
-            { StateName: 'OrgInfoList', type: __Query_Collection, promise: (client) => client.get(client.API.Common.Organization, { params: __APIParams }), conditions: __APIParams },
+            { StateName: 'OrgInfoList', type: __Query_Collection, promise: (client) => client.post(client.API.Common.Organization, { params: __APIParams }), conditions: __APIParams },
             { StateName: 'OrgInfoList1', type: __Query_Collection, promise: (client) => client.get(client.API.Common.Organization, { params: __APIParams1 }), conditions: __APIParams },
-            { StateName: 'OrgInfoList2', type: __Query_Collection, promise: (client) => client.get(client.API.Common.Organization, { params: __APIParams2 }), conditions: __APIParams },
+            { StateName: 'OrgInfoList2', type: __Query_Collection, promise: (client) => client.post(client.API.Common.Organization, { params: __APIParams2 }), conditions: __APIParams },
           ]
         }
       });
@@ -90,7 +106,7 @@ export default {
       if (StateName) {
         state[StateName] = result;
       }
-      console.log('__Query_Collection');
+      // console.log('__Query_Collection');
     },
 
     [__Query_First](state, params) {
@@ -101,20 +117,20 @@ export default {
       }
     },
     [__CommName](state, params) {
-      console.log(params);
+      // console.log(params);
     },
     [__GetTestAction](state, params) {
       state.times += params.times;
     },
     [Fail](state, params) {
-      console.log('fail.....');
+      // console.log('fail.....');
     },
     [Load](state, params) {
-      console.log('loading....', params);
+      // console.log('loading....');
     },
     [Complete](state, params) {
       state.CompleteResultList = params.results;
-      console.log('Complete....', params);
+      // console.log('Complete....');
     },
   }
 };

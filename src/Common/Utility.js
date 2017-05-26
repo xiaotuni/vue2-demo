@@ -57,6 +57,7 @@ export default class Utility {
     UserInfo: 'XTN_UserInfo',                                                    // 用户信息
     SaveUserConfigInfo: 'XTN_SaveUserConfigInfo',                                // 保存用户获取的配置信息
     SaveUrlPath: 'XTN_SaveUrlPath',                                              // url保存地址
+    SaveRouterKey: 'XTN_KEY_ROUTER',
     API: {
       UserInfo: 'XTN_API_UserInfo',    // 用户信息
     },

@@ -34,12 +34,14 @@ export default function clientMiddleware(client) {
     }
     const [REQUEST, SUCCESS, FAILURE] = types;
     commit(REQUEST, { type: REQUEST, ...rest });
-    console.log(REQUEST);
     const actionPromise = promise(client);
-    actionPromise.then(
-      (result) => { commit(SUCCESS, { result, ...rest }); },
-      (error) => { commit(FAILURE, { error, ...rest }); }
-    ).catch((error) => {
+    actionPromise.then((result) => {
+      commit(SUCCESS, { result, ...rest });
+    }, (error) => {
+      console.log('------1--------');
+      commit(FAILURE, { error, ...rest });
+    }).catch((error) => {
+      console.log('------2--------');
       commit(FAILURE, { error, ...rest });
     });
 

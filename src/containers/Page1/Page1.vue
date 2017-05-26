@@ -41,7 +41,7 @@
       <div class="btn" @click="CallStoreMethod(-1)">减少(-)</div>
       <div class="btn" @click="ModifyMethdName('aaaaaaa')">aa</div>
       <div class="btn" @click="ModifyMethdName('bbbbbbb')">bb</div>
-      <div class="btn" @click="ModifyMethdName('ccccccc')">cc</div>
+      <div class="btn" @click="CallMethodName('CallAPIByClient1')">CallAPIByClient1</div>
       <div class="btn" @click="CallMethodName('QueryList')">Call Query List Api</div>
       <div class="btn" @click="CallAPI()">Call Api</div>
   
@@ -82,19 +82,20 @@ export default {
       this.$store.dispatch(methodName, { current: new Date().getTime() }).then((list) => {
         console.log('返回的值-------');
         console.log(list);
-      });
+      }).catch(ex => console.log(ex));
     },
     CallAPI() {
       const __self = this;
       const obj = {
         Api: ApiInfo.Common.Organization, StateName: 'OrganizationList',
-        params: { parentId: 10000000, CurrentIndex: 0, showTree: false },
-        data: { parentId: 10000000, CurrentIndex: 0, showTree: false },
+        // params: { parentId: 10000000, CurrentIndex: 0, showTree: false },
+        // data: { parentId: 10000000, CurrentIndex: 0, showTree: false },
       };
-      console.log(obj);
       this.$store.dispatch('QueryApi', obj).then((result) => {
         console.log(__self.$store.state.Common.OrganizationList);
-        console.log('call api', result);
+        console.log('call api......');
+        console.log(result);
+        console.log('QueryApi complete...');
       });
     }
   },
@@ -102,11 +103,7 @@ export default {
     console.log('实例更新啦');
   },
   computed: {
-    // console.log('page1 computed ..2.');
-    // console.log(this.$store.state.Common.times);
     __GetTimes() {
-      console.log('page1 computed ..2.');
-      console.log(this.$store.state.Common.times);
       return this.$store.state.Common.times;
     },
   },
