@@ -4,8 +4,7 @@ const __GetTestAction = __Store + '__GetTestAction';
 let __CommName = __Store;
 const __Query_Collection = __Store + '_Query_Collection';
 const __Query_First = __Store + '__Query_First';
-
-
+const __ExecuteFunction = __Store + '__ExecuteFunction';
 
 const Load = __Store + '_Load';
 const Fail = __Store + '_Fail';
@@ -97,9 +96,28 @@ export default {
           conditions: params,
         }
       });
+    },
+    ExecuteCallAPI(action, paramInfo) {
+      const { commit, getters } = action;
+      const { client } = getters;
+      const { ApiList } = paramInfo;
+      const __List = { commit, actions: { list: [], loading: Load, fail: Fail, complete: Complete, } };
+      ApiList.forEach((api) => {
+        const { StateName, Api, Params, Data, Method } = api;
+        __List.actions.list.push({ StateName, type: __ExecuteFunction, promise: (client) => client[Method](Api, { params: Params, data: Data }) });
+      });
+      console.log('---------------ExecuteCallAPI------------');
+      return client(__List);
     }
   },
   mutations: {
+    [__ExecuteFunction](state, params) {
+      const { StateName, result } = params;
+      state.Result = result;
+      if (StateName) {
+        state[StateName] = result;
+      }
+    },
     [__Query_Collection](state, params) {
       const { StateName, result } = params;
       state.Result = result;

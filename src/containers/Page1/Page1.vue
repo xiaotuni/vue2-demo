@@ -44,6 +44,7 @@
       <div class="btn" @click="CallMethodName('CallAPIByClient1')">CallAPIByClient1</div>
       <div class="btn" @click="CallMethodName('QueryList')">Call Query List Api</div>
       <div class="btn" @click="CallAPI()">Call Api</div>
+      <div class="btn" @click="TextCallAPI1">TextCallAPI1</div>
   
     </div>
   </div>
@@ -97,7 +98,23 @@ export default {
         console.log(result);
         console.log('QueryApi complete...');
       });
-    }
+    },
+    TextCallAPI1() {
+      console.log('TextCallAPI1');
+      const __List = [];
+      const __P = { parentId: 10000000, pageIndex: 0, pageSize: 10 };
+      const __P1 = { parentId: 10000000, pageIndex: 1, pageSize: 10 };
+      const __P2 = { parentId: 10000000, pageIndex: 2, pageSize: 10 };
+      __List.push({ StateName: 'TextCallAPI1', Api: ApiInfo.Common.Organization, Params: __P, Data: __P, Method: 'get' });
+      __List.push({ StateName: 'TextCallAPI2', Api: ApiInfo.Common.Organization, Params: __P1, Data: __P1, Method: 'get' });
+      __List.push({ StateName: 'TextCallAPI3', Api: ApiInfo.Common.Organization, Params: __P2, Data: __P2, Method: 'get' });
+      const __self = this;
+      this.$store.dispatch('ExecuteCallAPI', { ApiList: __List }).then((result) => {
+        const { TextCallAPI1, TextCallAPI2, TextCallAPI3 } = __self.$store.state.Common;
+        console.log(TextCallAPI1, TextCallAPI2, TextCallAPI3);
+        console.log(result);
+      });
+    },
   },
   updated: function () {
     console.log('实例更新啦');

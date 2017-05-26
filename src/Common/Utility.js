@@ -70,12 +70,14 @@ export default class Utility {
       Home: 'home',                                                        // 
       H0201: 'h0201',                                                      // 
       Page1: 'page1',                                                      // 
+      RefreshPage: 'refreshpage',                                                      // 
     },
     UrlTitle: {
       '/': { Title: '首页', Index: 1 },
       '/home': { Title: 'home', Index: 1 },
       '/h0201': { Title: 'h0201', Index: 1 },
       '/page1': { Title: 'page1', Index: 1 },
+      '/refreshpage': { Title: '下拉上提刷新组件', Index: 1 },
     },
     /**
      * 显示模式

@@ -2,9 +2,10 @@
 .pageList {
   display: flex;
   align-items: center;
-
+  flex-wrap: wrap;
   .page {
     margin-right: 5px;
+    margin-top: 5px;
     >div {
       border: 1px solid #f5f5f5;
       padding: 5px 10px;
