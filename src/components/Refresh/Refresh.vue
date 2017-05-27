@@ -81,12 +81,13 @@ export default {
       // 
       const { Begin, Move } = this.Touch;
       const absYes = Move.Y - Begin.Y;
-      if (absYes > 60) {
-        this.TopTitle = '释放更新';
-      }
+      if (absYes > 0 && absYes < 120) {
+        console.log(absYes);
+        if (absYes > 60) {
+          this.TopTitle = '释放更新';
+        }
 
-      this.IsDisplayTop = true;
-      if (absYes < 120) {
+        this.IsDisplayTop = true;
         this.GetTopStyle.transform = 'translate3d(0px, ' + absYes + 'px, 0px)';
         this.GetContent.marginTop = absYes + 'px';
       }
@@ -178,7 +179,7 @@ export default {
       if (!Utility.isFunction(OnRefresh) || RefreshDataIsComplete === false) {
         return;
       }
-      // OnRefresh();
+      OnRefresh();
     },
     __ProcessDirectionLeft() {
       const { OnSlideLeft } = this.$props;
