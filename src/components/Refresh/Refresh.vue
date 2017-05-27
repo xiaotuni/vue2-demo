@@ -4,11 +4,28 @@
   width: 100%;
   height: 100%;
   position: relative;
+  .top {
+    padding: 5px;
+    text-align: center;
+    color: red;
+    display: none;
+    width: 100%;
+    background: #fff;
+
+    &.display {
+      display: inherit;
+    }
+  }
 }
 </style>
 <template>
   <div class="refreshCss" v-on:touchstart="OnTouchStart" v-on:touchmove="OnTouchMove" v-on:touchend="OnTouchEnd">
-    <slot></slot>
+    <div class="top" :class="{'display': IsDisplayTop }" :style="GetTopStyle">
+      {{TopTitle}}
+    </div>
+    <div :style="GetContent">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>
@@ -20,7 +37,18 @@ export default {
         Begin: {}, Move: {}, End: {},
         Direction: { Left: 'Left', Up: 'Up', Down: 'Down', Right: 'Right' },
         CurrentDirection: 'Left'
-      }
+      },
+      IsDisplayTop: false,
+      absXes: 10,
+      absYes: 500,
+      TopTitle: '下拉刷新',
+      GetTopStyle: {
+        transition: '.2s',
+        transform: 'translate3d(0px, 0px, 0px)'
+      },
+      GetContent: {
+
+      },
     };
     return __Content;
   },
@@ -48,13 +76,26 @@ export default {
     OnTouchMove(event) {
       const { pageX, pageY } = event.changedTouches[0];
       this.Touch.Move = { X: pageX, Y: pageY };
+      // 
+      const { Begin, Move } = this.Touch;
+      const absYes = Move.Y - Begin.Y;
+      this.IsDisplayTop = true;
+      this.GetTopStyle.transform = 'translate3d(0px, ' + absYes + 'px, 0px)';
+      this.GetContent.marginTop = absYes + 'px';
 
+      if (absYes > 60) {
+        this.TopTitle = '释放更新';
+      }
     },
     OnTouchEnd(event) {
       const { pageX, pageY } = event.changedTouches[0];
       this.Touch.End = { X: pageX, Y: pageY };
       this.__CalculationDirection();
       this.__ProcessPropsEvent();
+      this.GetTopStyle.transform = 'translate3d(0px, 0px, 0px)';
+      this.GetContent.marginTop = '0px';
+      this.IsDisplayTop = false;
+      this.TopTitle = '下拉刷新';
     },
     __CalculationDirection() {
       const { Begin, End, Direction } = this.Touch;
@@ -62,7 +103,7 @@ export default {
       const yes = End.Y - Begin.Y;
       const absXes = Math.abs(xes);
       const absYes = Math.abs(yes);
-      if (absXes < 10 && absYes < 20) {
+      if (absXes < this.absXes && absYes < this.absYes) {
         return;
       }
       if (xes > 0) {
@@ -114,6 +155,8 @@ export default {
     },
     __ProcessDirectionUp() {
       const { OnNextData, NextDataIsComplete, Percentage } = this.$props;
+      console.log(!Utility.isFunction(OnNextData));
+
       if (!Utility.isFunction(OnNextData) || NextDataIsComplete === false) {
         return;
       }
@@ -131,7 +174,7 @@ export default {
       if (!Utility.isFunction(OnRefresh) || RefreshDataIsComplete === false) {
         return;
       }
-      OnRefresh();
+      // OnRefresh();
     },
     __ProcessDirectionLeft() {
       const { OnSlideLeft } = this.$props;
@@ -148,6 +191,12 @@ export default {
       OnSlideRight();
 
     },
-  }
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate');
+  },
+  updated: function () {
+    // console.log('实例更新啦');
+  },
 };
 </script>

@@ -5,6 +5,7 @@
     // margin: 5px;
     .rowInfo {
       padding: 5px 0px;
+      margin-bottom: 5px;
       border: 1px solid #f5f5f5;
       text-align: center;
       display: flex;
@@ -46,14 +47,6 @@
         </div>
       </div>
     </xtn-refresh>
-    <hr/>
-    <div class="group">
-      <div class="rowInfo" v-for="(item,index) in Organizations">
-        <div class="number">{{item.Id+1}}</div>
-        <div class="guid">{{item.Guid}}</div>
-        <div class="time">{{item.DateTime|ConvertDateTime}}</div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -75,10 +68,12 @@ export default {
       __List.push({ StateName: 'OrganizationInfo', Api: ApiInfo.Common.Organization, Params: __P, Data: __P, Method: 'get' });
       const __self = this;
       this.ThisRefreshDataIsComplete = false;
+      this.ThisNextDataIsComplete = false;
       this.$store.dispatch('ExecuteCallAPI', { ApiList: __List }).then((result) => {
         const { OrganizationInfo } = __self.$store.state.Common;
         __self.DataList = OrganizationInfo.List;
         __self.ThisRefreshDataIsComplete = true;
+        __self.ThisNextDataIsComplete = true;
       });
     },
     NextData(times) {
@@ -92,12 +87,9 @@ export default {
     },
     RefreshData(name) {
       console.log('刷新当前页面数据');
-      const __P = { parentId: 10000000, pageIndex: 0, pageSize: 2 };
+      const __P = { parentId: 10000000, pageIndex: 0, pageSize: 10 };
       this.__InitData(__P);
     },
-  },
-  componentUpdated() {
-    console.log('componentUpdated');
   },
   filters: {
     ConvertDateTime(value) {
