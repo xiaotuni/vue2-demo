@@ -11,6 +11,8 @@
     display: none;
     width: 100%;
     background: #fff;
+    transform: translate3d(0px, 0px, 0px);
+    transition: 0.2s;
 
     &.display {
       display: inherit;
@@ -79,12 +81,14 @@ export default {
       // 
       const { Begin, Move } = this.Touch;
       const absYes = Move.Y - Begin.Y;
-      this.IsDisplayTop = true;
-      this.GetTopStyle.transform = 'translate3d(0px, ' + absYes + 'px, 0px)';
-      this.GetContent.marginTop = absYes + 'px';
-
       if (absYes > 60) {
         this.TopTitle = '释放更新';
+      }
+
+      this.IsDisplayTop = true;
+      if (absYes < 120) {
+        this.GetTopStyle.transform = 'translate3d(0px, ' + absYes + 'px, 0px)';
+        this.GetContent.marginTop = absYes + 'px';
       }
     },
     OnTouchEnd(event) {
