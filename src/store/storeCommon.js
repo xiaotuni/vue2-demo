@@ -1,4 +1,4 @@
-// import * as types from './mutation-types';
+import Vue from 'vue';
 const __Store = 'XTN_STORE_';
 const __GetTestAction = __Store + '__GetTestAction';
 let __CommName = __Store;
@@ -10,6 +10,8 @@ const Load = __Store + '_Load';
 const Fail = __Store + '_Fail';
 const Complete = __Store + '_Complete';
 
+
+// import Utility from '@/Common/Utility';
 export default {
   state: { times: 0 },
   getters: {},
@@ -104,7 +106,10 @@ export default {
       const __List = { commit, actions: { list: [], loading: Load, fail: Fail, complete: Complete, } };
       ApiList.forEach((api) => {
         const { StateName, Api, Params, Data, Method } = api;
-        __List.actions.list.push({ StateName, type: __ExecuteFunction, promise: (client) => client[Method](Api, { params: Params, data: Data }) });
+        __List.actions.list.push({
+          StateName, type: __ExecuteFunction, promise: (client) => client[Method](Api, { params: Params, data: Data }),
+          Condition: Params
+        });
       });
       console.log('---------------ExecuteCallAPI------------');
       return client(__List);
@@ -112,11 +117,32 @@ export default {
   },
   mutations: {
     [__ExecuteFunction](state, params) {
-      const { StateName, result } = params;
+      const { StateName, result, Condition } = params;
       state.Result = result;
       if (StateName) {
-        state[StateName] = result;
+        if (result && result.constructor.name === 'Array') {
+          const { pageIndex, pageSize } = Condition;
+          const _pIndex = Number(pageIndex) || 0;
+          const _pSize = Number(pageSize) || 10;
+          const _isExistsNextData = _pSize < result.length ? false : true;
+          Condition.pageSize = _pSize;
+          Condition.isExistsNextData = _isExistsNextData;
+          Condition.pageIndex = _pIndex + 1;
+          const { List } = state[StateName] || { List: [] };
+          const __Result = {};
+          __Result.Condition = Condition;
+          if (Condition.pageIndex > 1) {
+            __Result.List = List.concat(result);
+          } else {
+            __Result.List = result;
+          }
+          state[StateName] = __Result;
+        } else {
+          state[StateName] = result;
+        }
       }
+      state.__temp_Object = {};
+      Vue.set(state.__temp_Object, '__CurrentTime', new Date().getTime());
     },
     [__Query_Collection](state, params) {
       const { StateName, result } = params;

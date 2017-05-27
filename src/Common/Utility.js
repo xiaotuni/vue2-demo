@@ -102,13 +102,19 @@ export default class Utility {
    * @param obj
    * @returns {boolean}
    */
-  static isArray(obj) {
+  static $isArray(obj) {
     if (!obj || !obj.length || obj.length === 0) {
       return false;
     }
     return Array.isArray(obj);
   }
 
+  static $isArrayEmpty(obj) {
+    if (!obj || !obj.length || obj.length === 0) {
+      return true;
+    }
+    return Array.isArray(obj);
+  }
   /**
    * 判断是否为空
    * true-为空;false-不为空
