@@ -18,6 +18,11 @@
       display: inherit;
     }
   }
+
+  .bottom {
+    display: none;
+    &.display {}
+  }
 }
 </style>
 <template>
@@ -28,6 +33,7 @@
     <div :style="GetContent">
       <slot></slot>
     </div>
+    <div class="bottom" :class="{'display': IsDisplayBottom}"></div>
   </div>
 </template>
 <script>
@@ -198,7 +204,7 @@ export default {
     },
   },
   beforeUpdate() {
-    console.log('beforeUpdate');
+    // console.log('beforeUpdate');
   },
   updated: function () {
     // console.log('实例更新啦');
