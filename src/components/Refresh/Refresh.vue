@@ -54,6 +54,7 @@ export default {
         transition: '.2s',
         transform: 'translate3d(0px, 0px, 0px)'
       },
+      IsDisplayBottom: false,
       GetContent: {
 
       },
