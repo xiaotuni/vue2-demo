@@ -31,6 +31,10 @@
         white-space: nowrap;
       }
     }
+
+    >div:last-child {
+      margin-bottom: auto;
+    }
   }
 }
 </style>
@@ -72,8 +76,10 @@ export default {
       this.$store.dispatch('ExecuteCallAPI', { ApiList: __List }).then((result) => {
         const { OrganizationInfo } = __self.$store.state.Common;
         __self.DataList = OrganizationInfo.List;
+        // setTimeout(() => {
         __self.ThisRefreshDataIsComplete = true;
         __self.ThisNextDataIsComplete = true;
+        // }, 2000);
       });
     },
     NextData(times) {
@@ -97,10 +103,10 @@ export default {
     },
   },
   beforeUpdate() {
-    console.log('beforeUpdate');
+    // console.log('beforeUpdate');
   },
   updated: function () {
-    console.log('实例更新啦');
+    // console.log('实例更新啦');
   },
   created() {
     console.log('获取数据');
