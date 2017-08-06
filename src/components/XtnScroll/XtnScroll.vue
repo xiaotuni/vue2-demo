@@ -102,7 +102,6 @@ export default {
           this.TopInfo.IsCallAPI = true;
         }
         if (absYes < 120) {
-          // console.log(absYes);
           this.TopInfo.IsDisplayTop = true;
           this.GetTopStyle.transform = 'translate3d(0px, ' + absYes + 'px, 0px)';
           this.GetContent.marginTop = absYes + 'px';
@@ -227,26 +226,19 @@ export default {
         return;
       }
       OnSlideRight();
-
     },
     __JudeNextDataIsComplete() {
       const __self = this;
-      setTimeout(() => {
-        const { NextDataIsComplete } = __self.$props;
-        const { Direction, CurrentDirection } = __self.Touch;
-        if (!!__self.BottomInfo.IsDisplay && !!NextDataIsComplete && CurrentDirection === Direction.Up) {
-          console.log('refresh 实例更新啦');
-          __self.BottomInfo.IsDisplay = false;
-        }
-      }, 1000 * 5);
+      const { NextDataIsComplete } = __self.$props;
+      const { Direction, CurrentDirection } = __self.Touch;
+      if (!!__self.BottomInfo.IsDisplay && !!NextDataIsComplete && CurrentDirection === Direction.Up) {
+        __self.BottomInfo.IsDisplay = false;
+      }
     },
-  },
-  beforeUpdate() {
-    // console.log('beforeUpdate');
+
   },
   updated: function () {
     this.__JudeNextDataIsComplete();
   },
-
 };
 </script>

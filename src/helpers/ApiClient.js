@@ -5,7 +5,7 @@ const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
-  const _ApiUrl = 'http://127.0.0.1:11000/WebApi' + adjustedPath;
+  const _ApiUrl = 'https://127.0.0.1:30081/WebApi' + adjustedPath;
   return _ApiUrl;
 }
 
@@ -17,7 +17,7 @@ export default class ApiClient {
        * GET api/depts 获取组织机构
        * -------------------------------------参入的参数-------------------------------------------
        */
-      Organization: '/depts',
+      Organization: '/common/area',
       /**
        * post
        */

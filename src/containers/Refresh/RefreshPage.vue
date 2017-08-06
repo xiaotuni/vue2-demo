@@ -42,20 +42,19 @@
 <template>
   <div class="refreshPageCss">
     <xtn-menu></xtn-menu>
-    <xtn-refresh :OnNextData="NextData" :NextDataIsComplete="ThisNextDataIsComplete" :Percentage="10" :OnRefresh="RefreshData" :RefreshDataIsComplete="ThisRefreshDataIsComplete">
+    <xtn-scroll :OnNextData="NextData" :NextDataIsComplete="ThisNextDataIsComplete" :Percentage="10" :OnRefresh="RefreshData" :RefreshDataIsComplete="ThisRefreshDataIsComplete">
       <div class="group">
         <div class="rowInfo" v-for="(item,index) in DataList">
-          <div class="number">{{item.Id+1}}</div>
-          <div class="guid">{{item.Guid}}</div>
-          <div class="time">{{item.DateTime|ConvertDateTime}}</div>
+          <div class="number">{{item.AreaId+1}}</div>
+          <div class="guid">{{item.AreaName}}</div>
         </div>
       </div>
-    </xtn-refresh>
+    </xtn-scroll>
   </div>
 </template>
 
 <script>
-import { Utility, Menu, ApiInfo, Refresh } from '@/components/core';
+import { Utility, Menu, ApiInfo, XtnScroll } from '@/components/core';
 export default {
   name: 'hello',
   data() {
@@ -76,10 +75,8 @@ export default {
       this.$store.dispatch('ExecuteCallAPI', { ApiList: __List }).then((result) => {
         const { OrganizationInfo } = __self.$store.state.Common;
         __self.DataList = OrganizationInfo.List;
-        // setTimeout(() => {
         __self.ThisRefreshDataIsComplete = true;
         __self.ThisNextDataIsComplete = true;
-        // }, 2000);
       });
     },
     NextData(times) {
@@ -93,7 +90,7 @@ export default {
     },
     RefreshData(name) {
       console.log('刷新当前页面数据');
-      const __P = { parentId: 10000000, pageIndex: 0, pageSize: 10 };
+      const __P = { PageIndex: 0, PageSize: 10 };
       this.__InitData(__P);
     },
   },
@@ -119,11 +116,9 @@ export default {
       return this.$store.state.Common.times;
     },
     Common() {
-      console.log('--------Common----------');
       return this.$store.state.Common;
     },
     Organizations: function () {
-      console.log('--------Organizations----------');
       const { OrganizationInfo } = this.$store.state.Common;
       const { List } = OrganizationInfo || {};
       return List;
@@ -131,7 +126,7 @@ export default {
   },
   components: {
     'xtn-menu': Menu,
-    'xtn-refresh': Refresh,
+    'xtn-scroll': XtnScroll,
   }
 };
 </script>
