@@ -1,12 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Hello from '@/components/Hello';
-// import Page1 from '@/components/Page1';
 import v0201 from '@/demo/v0201';
 import { PageInfo } from '../containers/core';
-const { Hello, Page1, RefreshPage } = PageInfo;
-// console.log(PageInfo);
-// console.log('-----------');
+const { Hello, Page1, RefreshPage, DataMap } = PageInfo;
 Vue.use(Router);
 
 export default new Router({
@@ -17,5 +13,6 @@ export default new Router({
     { path: '/page1', name: 'Page1', component: Page1 },
     { path: '/h0201', name: 'v0201', component: v0201 },
     { path: '/refreshpage', name: 'RefreshPage', component: RefreshPage },
+    { path: '/datamap', name: 'DataMap', component: DataMap },
   ]
 });

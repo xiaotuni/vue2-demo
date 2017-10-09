@@ -44,7 +44,7 @@
     <xtn-menu></xtn-menu>
     <xtn-scroll :OnNextData="NextData" :NextDataIsComplete="ThisNextDataIsComplete" :Percentage="10" :OnRefresh="RefreshData" :RefreshDataIsComplete="ThisRefreshDataIsComplete">
       <div class="group">
-        <div class="rowInfo" v-for="(item,index) in DataList">
+        <div class="rowInfo" v-for="(item,index) in DataList" v-bind:key="index">
           <div class="number">{{item.AreaId+1}}</div>
           <div class="guid">{{item.AreaName}}</div>
         </div>
