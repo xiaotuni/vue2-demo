@@ -28,7 +28,7 @@
     }
   }
   .content {
-    height: 90vh;
+    height: 94vh;
     display: flex;
     .dmLeft {
       flex: 1;

@@ -3,7 +3,7 @@
   height: 100%;
   width: 100%;
   position: relative;
-  border: 1px soid #f0f0f0;
+  border: 1px solid #f0f0f0;
 }
 </style>
 <template>
