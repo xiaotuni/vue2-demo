@@ -4,8 +4,8 @@
   height: 100%;
   overflow: auto;
   .title {
-    padding: 5px 10px;
-    font-size: 18px;
+    width: 100%;
+    position: relative;
   }
   .data {
     display: flex;
@@ -20,36 +20,41 @@
 </style>
 <template>
   <div class="monitorDataCss">
-    <div class="title">规划监测指标</div>
+    <div class="title">
+      <md-title-info :name="TitleDesc"></md-title-info>
+    </div>
     <div class="data">
       <div class="left">图标</div>
       <div class="right">
-        <md-name-value :Collection="List"></md-name-value>
+        <md-name-value :collection="DataSource"></md-name-value>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Utility, NameValue } from '@/components/core';
+import { NameValue, TitleInfo } from '@/components/InsideComponent/core';
+import { Utility } from '@/components/core';
 export default {
   name: 'MonitorData',
+  props: {
+    DataSource: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    TitleDesc: {
+      type: String, default() {
+        return '规划监测指标';
+      }
+    }
+  },
   data() {
     const __Content = { List: [] };
     return __Content;
   },
   mounted() {
-    const data = [
-      { id: 1, title: '人口增长', value: '10.53%' },
-      { id: 2, title: '户均人口', value: '10.53%' },
-      { id: 3, title: '换手率', value: '10.53%' },
-      { id: 4, title: '抚养比', value: '10.53%' },
-      { id: 5, title: '本地就业', value: '10.53%' },
-      { id: 6, title: '轨交供需', value: '10.53%' },
-      { id: 7, title: '社区多样', value: '10.53%' },
-      { id: 8, title: '教育指数', value: '10.53%' },
-    ];
-    this.List = data;
-    console.log('people data components----------');
+
   },
   methods: {
     GoToPage(item) {
@@ -57,7 +62,8 @@ export default {
     }
   },
   components: {
-    'md-name-value': NameValue
+    'md-name-value': NameValue,
+    'md-title-info': TitleInfo,
   }
 };
 </script>

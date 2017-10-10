@@ -4,8 +4,8 @@
   height: 100%;
   overflow: auto;
   .title {
-    padding: 5px 10px;
-    font-size: 18px;
+    width: 100%;
+    position: relative;
   }
   .data {
     display: flex;
@@ -20,37 +20,41 @@
 </style>
 <template>
   <div class="peopleDataCss">
-    <div class="title">人中数据指标</div>
+    <div class="title">
+      <md-title-info :name="TitleDesc"></md-title-info>
+    </div>
     <div class="data">
       <div class="left">图标</div>
       <div class="right">
-        <md-name-value :Collection="Collection"></md-name-value>
+        <md-name-value :collection="DataSource"></md-name-value>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Utility, NameValue } from '@/components/core';
+import { NameValue, TitleInfo } from '@/components/InsideComponent/core';
+import { Utility } from '@/components/core';
 export default {
   name: 'PeopleData',
+  props: {
+    DataSource: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    TitleDesc: {
+      type: String, default() {
+        return '人口数据指标';
+      }
+    }
+  },
   data() {
-    const __Content = { List: [], Collection: [] };
+    const __Content = { List: [] };
     return __Content;
   },
   mounted() {
-    console.log('people data components----------');
 
-    const data = [
-      { id: 1, title: '日夜潮汐', value: '10.53%' },
-      { id: 2, title: '高学历比', value: '10.53%' },
-      { id: 3, title: '劳动力比', value: '10.53%' },
-      { id: 4, title: '老龄人比', value: '10.53%' },
-      { id: 5, title: '学龄人比', value: '10.53%' },
-      { id: 6, title: '户籍人比', value: '10.53%' },
-      { id: 7, title: '劳动趋势', value: '10.53%' },
-      { id: 8, title: '老龄趋势', value: '10.53%' },
-    ];
-    this.Collection = data;
   },
   methods: {
     GoToPage(item) {
@@ -58,7 +62,8 @@ export default {
     }
   },
   components: {
-    'md-name-value': NameValue
+    'md-name-value': NameValue,
+    'md-title-info': TitleInfo,
   }
 };
 </script>

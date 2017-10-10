@@ -3,6 +3,7 @@
   height: 100%;
   width: 100%;
   position: relative;
+  border: 1px soid #f0f0f0;
 }
 </style>
 <template>
@@ -19,7 +20,6 @@ export default {
     return __Content;
   },
   mounted() {
-    console.log('--------city data----------');
     const data = [
       { id: 1, title: '三产占比', value: '10.53%' },
       { id: 2, title: '高服占比', value: '10.53%' },

@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" scoped>
 .nameValueCss {
   .row {
     display: flex;
@@ -20,7 +20,7 @@
 </style>
 <template>
   <div class="nameValueCss">
-    <div class="row" v-for="(item,index) in Collection" v-bind:key="index">
+    <div class="row" v-for="(item,index) in collection" v-bind:key="index">
       <div class="name">{{item.title}}</div>
       <div class="value">{{item.value}}</div>
     </div>
@@ -31,7 +31,7 @@ import { Utility } from '@/components/core';
 export default {
   name: 'CityData',
   props: {
-    Collection: {
+    collection: {
       type: Array,
       default: function() {
         return [];
@@ -40,6 +40,9 @@ export default {
   },
   data() {
     return {};
+  },
+  created() {
+    console.log('name value created.........');
   },
   mounted() {
     console.log('------------------------');

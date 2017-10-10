@@ -9,12 +9,12 @@ import MonitorData from './MonitorData/MonitorData.vue';
 import SecondHandHousingMarket from './SecondHandHousingMarket/SecondHandHousingMarket.vue';
 import NewHomeMarket from './NewHomeMarket/NewHomeMarket.vue';
 import RentalMarket from './RentalMarket/RentalMarket.vue';
-import NameValue from './DataRow/NameValue.vue';
+
 import DataMarketMap from './DataMaps/DataMarketMap.vue';
 import ChartLine from './Charts/Line.vue';
 
 export {
-  Utility, ChartLine, DataMarketMap, NameValue,
+  Utility, ChartLine, DataMarketMap, // NameValue, TitleInfo,
   CityData, MonitorData, PeopleData, RentalMarket, Menu, NewHomeMarket,
   ApiInfo, XtnScroll, SecondHandHousingMarket
 };

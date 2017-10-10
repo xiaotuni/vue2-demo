@@ -3,6 +3,11 @@
   .title {
     padding: 10px;
     font-size: 16px;
+    display: flex;
+    >div {
+      flex: 1;
+      text-align: center;
+    }
   }
 }
 </style>
@@ -26,7 +31,6 @@ export default {
     return __Content;
   },
   mounted() {
-    console.log('--------city data----------');
     const data = [
       { id: 1, title: '三产占比', value: '10.53%' },
       { id: 2, title: '高服占比', value: '10.53%' },
