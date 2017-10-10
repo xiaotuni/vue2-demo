@@ -15,7 +15,7 @@
 </style>
 <template>
   <div class="pageList">
-    <div class="page" v-for="(item,index) in List">
+    <div class="page" v-for="(item,index) in List" v-bind:key="index">
       <div @click="GoToPage(item)">
         {{(index+1)+ ':' + item.Title}}
       </div>

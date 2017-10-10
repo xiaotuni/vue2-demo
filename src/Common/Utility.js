@@ -71,7 +71,8 @@ export default class Utility {
       H0201: 'h0201',                                                      // 
       Page1: 'page1',                                                      // 
       RefreshPage: 'refreshpage',                                                      // 
-      DataMap: 'datamap',                                                      // 
+      DataMap: 'datamap',
+      Default: 'default',                                                      //                                                  // 
     },
     UrlTitle: {
       '/': { Title: '首页', Index: 1 },
@@ -80,6 +81,7 @@ export default class Utility {
       '/page1': { Title: 'page1', Index: 1 },
       '/refreshpage': { Title: '下拉上提刷新组件', Index: 1 },
       '/datamap': { Title: 'datamap', Index: 1 },
+      '/default': { Title: 'default', Index: 1 },
     },
     /**
      * 显示模式
