@@ -1,6 +1,6 @@
 <style lang="scss" scoped>
 .defaultCss {
-  font-size: 12px;
+  font-size: 14px;
   background: #000;
   color: #fff;
   position: absolute;
@@ -19,10 +19,10 @@
   }
 
   .dmRight {
-    .dmTop {
-      display: flex;
-      .item {
-        border: 1px solid;
+    display: flex;
+    .item {
+      >div {
+        margin-bottom: 5px;
       }
     }
   }
@@ -35,35 +35,44 @@
       <md-menu-info Desc="菜单"></md-menu-info>
     </div>
     <div class="dmRight">
-      <div class="dmTop">
-        <div class="item">
-          <div>
-            城市：
-            <select>
-              <option>北京</option>
-              <option>上海</option>
-              <option>广州</option>
-              <option>杭州</option>
-            </select>
-          </div>
-          <div>
-            地区：
-            <md-multiselect :onSelectItem="onSelectAreaItem"></md-multiselect>
-          </div>
-
+      <div class="item">
+        <div>
+          城市：
+          <select>
+            <option>北京</option>
+            <option>上海</option>
+            <option>广州</option>
+            <option>杭州</option>
+          </select>
         </div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
+        <div>
+          <md-multiselect-area :onSelectItem="onSelectAreaItem" :DataSource="DataInfo.AreaCityData" />
+        </div>
+        <div>
+          <md-multiselect-poi :onSelectItem="onSelectPOIItem" :DataSource="DataInfo.POIData" />
+        </div>
+        <div>
+          <md-multiselect-mobike :onSelectItem="onSelectPOIItem" :DataSource="DataInfo.MobikeData" />
+        </div>
+        <div>
+          <md-chart-bank />
+        </div>
+        <div>
+          <md-chart-dianping />
+        </div>
+        <div>
+          <md-chart-company />
+        </div>
       </div>
-      <div class="dm"></div>
     </div>
+    <div class="mapInfo">地图位置</div>
   </div>
 </template>
 
 <script>
 import {
-  MenuInfo, Utility, ApiInfo, Multiselect,
+  BankChart, DianpingChart, CompanyChart,
+  MenuInfo, Utility, ApiInfo, Multiselect, MultiselectPOI, MultiselectArea, MultiselectMobike,
 } from '@/components/core';
 export default {
   name: 'Default',
@@ -75,71 +84,34 @@ export default {
   },
   created() {
     const InitData = () => {
-      this.DataInfo.CityData = [
-        { id: 1, title: '三产占比', value: '10.53%' },
-        { id: 2, title: '高服占比', value: '10.53%' },
-        { id: 3, title: '公交密度', value: '10.53%' },
-        { id: 4, title: '地铁密度', value: '10.53%' },
-        { id: 5, title: '通勤半经', value: '10.53%' },
-        { id: 6, title: '医疗指数', value: '10.53%' },
-        { id: 7, title: '公园指数', value: '10.53%' },
-        { id: 8, title: '教育指数', value: '10.53%' },
+      this.DataInfo.AreaCityData = [
+        { id: 1, title: '朝阳', },
+        { id: 2, title: '海淀', },
+        { id: 3, title: '东城', },
+        { id: 4, title: '西城', },
+        { id: 5, title: '通州', },
+        { id: 6, title: '顺义', },
+        { id: 7, title: '昌平', },
+      ];
+      this.DataInfo.POIData = [
+        { id: 1, title: '学校', },
+        { id: 2, title: '医院', },
+      ];
+      this.DataInfo.MobikeData = [
+        { id: 1, title: '2点' },
+        { id: 1, title: '4点' },
+        { id: 1, title: '6点' },
+        { id: 1, title: '8点' },
+        { id: 1, title: '10点' },
+        { id: 1, title: '12点' },
+        { id: 1, title: '14点' },
+        { id: 1, title: '16点' },
+        { id: 1, title: '18点' },
+        { id: 1, title: '20点' },
+        { id: 1, title: '22点' },
+        { id: 1, title: '24点' },
       ];
 
-      this.DataInfo.PeopleData = [
-        { id: 1, title: '日夜潮汐', value: '10.53%' },
-        { id: 2, title: '高学历比', value: '10.53%' },
-        { id: 3, title: '劳动力比', value: '10.53%' },
-        { id: 4, title: '老龄人比', value: '10.53%' },
-        { id: 5, title: '学龄人比', value: '10.53%' },
-        { id: 6, title: '户籍人比', value: '10.53%' },
-        { id: 7, title: '劳动趋势', value: '10.53%' },
-        { id: 8, title: '老龄趋势', value: '10.53%' },
-      ];
-
-      this.DataInfo.MonitorData = [
-        { id: 1, title: '人口增长', value: '10.53%' },
-        { id: 2, title: '户均人口', value: '10.53%' },
-        { id: 3, title: '换手率', value: '10.53%' },
-        { id: 4, title: '抚养比', value: '10.53%' },
-        { id: 5, title: '本地就业', value: '10.53%' },
-        { id: 6, title: '轨交供需', value: '10.53%' },
-        { id: 7, title: '社区多样', value: '10.53%' },
-        { id: 8, title: '教育指数', value: '10.53%' },
-      ];
-
-      this.DataInfo.RentalMarket = [
-        { id: 1, title: '最高租金', value: '10.53%' },
-        { id: 2, title: '中位租金', value: '10.53%' },
-        { id: 3, title: '平均租金', value: '10.53%' },
-        { id: 4, title: '热租户型', value: '10.53%' },
-        { id: 5, title: '滞租率', value: '10.53%' },
-        { id: 6, title: '最高租增', value: '10.53%' },
-        { id: 7, title: '中位租增', value: '10.53%' },
-        { id: 8, title: '平均租增', value: '10.53%' },
-      ];
-
-      this.DataInfo.SecondHandHousingMarket = [
-        { id: 1, title: '套数规模', value: '10.53%' },
-        { id: 2, title: '最高单价', value: '10.53%' },
-        { id: 3, title: '中位单价', value: '10.53%' },
-        { id: 4, title: '平均单价', value: '10.53%' },
-        { id: 5, title: '单价高数', value: '10.53%' },
-        { id: 6, title: '最高价增', value: '10.53%' },
-        { id: 7, title: '中位价增', value: '10.53%' },
-        { id: 8, title: '平均价增', value: '10.53%' },
-      ];
-
-      this.DataInfo.NewHomeMarket = [
-        { id: 1, title: '最高租金', value: '10.53%' },
-        { id: 2, title: '中位租金', value: '10.53%' },
-        { id: 3, title: '平均租金', value: '10.53%' },
-        { id: 4, title: '热租户型', value: '10.53%' },
-        { id: 5, title: '滞租率', value: '10.53%' },
-        { id: 6, title: '最高租增', value: '10.53%' },
-        { id: 7, title: '中位租增', value: '10.53%' },
-        { id: 8, title: '平均租增', value: '10.53%' },
-      ];
     };
     InitData();
   },
@@ -150,7 +122,11 @@ export default {
     },
     onSelectAreaItem(items) {
       console.log('onSelectItem', items);
-    }
+    },
+    onSelectPOIItem(items) {
+      console.log('onSelectPOIItem', items);
+    },
+
   },
   updated: function() {
     console.log('实例更新啦');
@@ -163,7 +139,12 @@ export default {
   components: {
     'md-menu-info': MenuInfo,
     'md-multiselect': Multiselect,
-    
+    'md-multiselect-area': MultiselectArea,
+    'md-multiselect-mobike': MultiselectMobike,
+    'md-multiselect-poi': MultiselectPOI,
+    'md-chart-bank': BankChart,
+    'md-chart-dianping': DianpingChart,
+    'md-chart-company': CompanyChart,
   }
 };
 </script>

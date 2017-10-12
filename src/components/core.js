@@ -12,11 +12,19 @@ import NewHomeMarket from './NewHomeMarket/NewHomeMarket.vue';
 import RentalMarket from './RentalMarket/RentalMarket.vue';
 
 import DataMarketMap from './DataMaps/DataMarketMap.vue';
-import ChartLine from './Charts/Line.vue';
 import Multiselect from './Multiselect/Multiselect.vue';
 
+import ChartLine from './Charts/Line.vue';
+import MultiselectArea from './Charts/MultiselectArea.vue';
+import MultiselectMobike from './Charts/MultiselectMobike.vue';
+import MultiselectPOI from './Charts/MultiselectPOI.vue';
+import BankChart from './Charts/Bank.vue';
+import DianpingChart from './Charts/Dianping.vue';
+import CompanyChart from './Charts/Company.vue';
+
 export {
-  Utility, ChartLine, DataMarketMap, Multiselect,
+  BankChart, DianpingChart, CompanyChart,
+  Utility, MultiselectMobike, MultiselectArea, MultiselectPOI, ChartLine, DataMarketMap, Multiselect,
   CityData, MonitorData, PeopleData, RentalMarket, MenuInfo, Menu, NewHomeMarket,
   ApiInfo, XtnScroll, SecondHandHousingMarket
 };

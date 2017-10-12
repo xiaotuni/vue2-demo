@@ -1,20 +1,45 @@
 <style lang="scss" scoped>
 .multiselectCss {
   position: relative;
-  width: 100%;
-  height: 100%;
-  margin-top: 20px;
   font-size: 14px;
+  .title {
+    position: relative;
+    padding: 5px;
+    background: #799dbf;
+  }
+  .item {
+    width: 100%;
+    height: 100%;
+    max-height: 180px;
+    min-width: 130px;
+    max-width: 180px;
+    overflow-x: auto;
 
-  >div {
-    margin: 5px 0px;
     >div {
-      padding: 5px;
-      background: #cd5e5e;
-      &:hover {
-        border: 1px solid #4f4f91;
-        padding: 4px;
-        background: #4f4f91;
+      margin: 3px 0px;
+      >div {
+        padding: 5px;
+        padding-left: 10px;
+        background: #cd5e5e;
+        &:hover {
+          border: 1px solid #4f4f91;
+          padding: 4px;
+          padding-left: 9px;
+          background: #4f4f91;
+        }
+      }
+    }
+    &.isDisabled {
+      overflow: hidden;
+      >div {
+        >div {
+          &:hover {
+            border: none;
+            padding: 5px;
+            padding-left: 10px;
+            background: #cd5e5e;
+          }
+        }
       }
     }
   }
@@ -22,13 +47,27 @@
 </style>
 <template>
   <div class="multiselectCss">
-    <div v-for="(item,index) in List" v-bind:key="index">
-      <div v-on:click="onClickSelectItem(item,index)">
-        <label for="">
-          <input type="checkbox" v-model="SelectItem[index]"/> {{item.title}}
-        </label>
+    <div class="title">
+      <label for="" v-if="IsAddTitleChecked" v-on:click="onLabelClick()">
+        <div>
+          <input type="checkbox" v-model="IsTitleChecked" v-on:click="onLabelClick()">{{Title}}：
+        </div>
+      </label>
+      <span v-if="!IsAddTitleChecked">
+        {{Title}}：
+      </span>
+    </div>
+
+    <div class="item" :class="{'isDisabled': IsAddTitleChecked && IsTitleChecked===false}">
+      <div v-for="(item,index) in List" v-bind:key="item.id">
+        <div v-on:click="onClickSelectItem(item,index)">
+          <label for="">
+            <input type="checkbox" v-model="item.isChecked" v-on:click="onClickSelectItem(item,index)" /> {{item.title}}
+          </label>
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -36,55 +75,57 @@ import { Utility } from '@/components/core';
 export default {
   name: 'Multiselect',
   props: {
-    IsMultiselect: {
-      type: Boolean, default() {
-        return true;
-      }
-    },
-    DataSource: {
-      type: Array, default() {
-        return [];
-      }
-    },
-    onSelectItem: {
-      type: Function,
-    }
-  },
-  event: {
-
+    Title: { type: String, default() { return '标题'; } },
+    IsAddTitleChecked: { type: Boolean, default: false },
+    IsMultiselect: { type: Boolean, default: true },
+    DataSource: { type: Array, default: [] },
+    onSelectItem: { type: Function, }
   },
   data() {
-    const __Content = { List: [], SelectItem: {} };
+    const __Content = { counter: 0, List: [], SelectItem: {}, IsTitleChecked: false };
     return __Content;
   },
+  created() {
+    this.List = this.$props.DataSource.slice(0, this.$props.DataSource.length);
+  },
+  updated() {
+  },
+  computed() {
+  },
   mounted() {
-    const data = [
-      { id: 1, title: '人口分析', },
-      { id: 2, title: '土地市场分析', },
-      { id: 3, title: '市场大数据', },
-      { id: 4, title: '选址大数据', },
-    ];
-    this.List = data;
+
   },
   methods: {
     GoToPage(item) {
       Utility.$toPage(item.Url);
     },
+    onLabelClick() {
+      this.IsTitleChecked = !this.IsTitleChecked;
+    },
     onClickSelectItem(item, index) {
-      const { onSelectItem, IsMultiselect } = this.$props;
-      if (!onSelectItem) {
+      const { onSelectItem, IsMultiselect, DataSource, IsAddTitleChecked } = this.$props;
+      if (!onSelectItem || !DataSource) {
         return;
       }
+      if (!!IsAddTitleChecked && !this.IsTitleChecked) {
+        return;
+      }
+      this.counter += 1;
       if (!IsMultiselect) {
-        onSelectItem(item);
+        const __isChecked = item.isChecked;
+        this.List.forEach((row) => {
+          row.isChecked = false;
+        });
+        item.isChecked = !__isChecked;
+        this.$set(this.List, index, item);
+        onSelectItem(item.isChecked ? [item] : null);
         return;
       }
-      if (!this.SelectItem[index]) {
-        this.SelectItem[index] = item;
-      } else {
-        delete this.SelectItem[index];
-      }
-      onSelectItem(Object.values(this.SelectItem));
+
+      item.isChecked = !item.isChecked;
+      this.$set(this.List, index, item);
+      const items = this.List.filter((row) => !!row.isChecked);
+      onSelectItem(items);
     }
   }
 };
