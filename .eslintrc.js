@@ -41,6 +41,7 @@ module.exports = {
     'padded-blocks': 0,
     'object-property-newline': 0,
     'no-return-assign': 0,
-    'no-extra-boolean-cast': 0
+    'no-extra-boolean-cast': 0,
+    'yield-star-spacing':0
   }
 }

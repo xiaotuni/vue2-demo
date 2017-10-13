@@ -35,7 +35,7 @@
     <div class="btn" @click="aaa">后退</div>
     <hr />
     <div class="store">
-  
+
       <div class="btn" @click="CallStoreMethod(1)">添加(+)</div>
       <div class="btn">{{__GetTimes}}</div>
       <div class="btn" @click="CallStoreMethod(-1)">减少(-)</div>
@@ -45,7 +45,7 @@
       <div class="btn" @click="CallMethodName('QueryList')">Call Query List Api</div>
       <div class="btn" @click="CallAPI()">Call Api</div>
       <div class="btn" @click="TextCallAPI1">TextCallAPI1</div>
-  
+
     </div>
   </div>
 </template>
@@ -59,8 +59,63 @@ export default {
       msg: '这是一个页面啦'
     };
   },
+  created() {
+    console.log('---------created---page1-------');
+    function* TestGenerator() {
+      yield { id: 1, name: '张三', value: '哈哈' };
+      yield 'bbbbbbb';
+      return 'ending';
+    }
+
+    let aaa = TestGenerator();
+    console.log(aaa.next());
+    console.log(aaa.next());
+    console.log(aaa.next());
+    console.log(aaa.next());
+    console.log('------1--------');
+
+    function* TestGenerator1() {
+      console.log('返回两个值相加');
+      yield 123 + 456;
+    }
+    aaa = TestGenerator1();
+    console.log(aaa.next());
+    console.log('--------2---------');
+    function* TestGenerator2() {
+      console.log('测试打印日志了');
+    }
+    aaa = TestGenerator2();
+    aaa.next();
+    console.log('--------3---------');
+    const arr = [1, [[2, 3], 4], [5, 6]];
+
+    function* TestGeneratorFlat(a) {
+      const _length = a.length;
+      for (let i = 0; i < _length; i++) {
+        const item = a[i];
+        if (typeof item !== 'number') {
+          yield* TestGeneratorFlat(item);
+        } else {
+          yield item;
+        }
+      }
+    };
+    aaa = TestGeneratorFlat(arr);
+    for (let key of aaa) {
+      console.log(key);
+    }
+
+    console.log('--------4---------');
+    function* TestGenerator4() {
+      console.log('Hello' + (yield 123));
+    };
+    aaa = TestGenerator4();
+    console.log(aaa.next());
+    console.log('--------5---------');
+    console.log('--------2---------');
+  },
   methods: {
-    aaa: function () {
+    aaa: function() {
       Utility.$goBack(2);
     },
     CallStoreMethod(times) {
@@ -116,7 +171,7 @@ export default {
       });
     },
   },
-  updated: function () {
+  updated: function() {
     console.log('实例更新啦');
   },
   computed: {
